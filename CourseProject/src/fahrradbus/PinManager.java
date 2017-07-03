@@ -26,7 +26,7 @@ public class PinManager {
 		pinListenBusse.add(new Pincode());
 		
 		
-		Path daten = Paths.get("/Users/Charlin/Desktop/PinDatenbank.dat");
+		Path daten = Paths.get("/Users/Steffi/PinDatenbank.dat");
 		if (!Files.exists(daten)) {
 			pinListenBusse.get(0).init();
 			pinListenBusse.get(1).init();
@@ -37,11 +37,11 @@ public class PinManager {
 	}
 	
 	public void datenLaden() throws Exception {
-		Path daten = Paths.get("/Users/Charlin/Desktop/PinDatenbank.dat");
+		Path daten = Paths.get("/Users/Steffi/PinDatenbank.dat");
 		if (Files.exists(daten)) {
 			BufferedReader writer = null;
 			try {
-			    writer = new BufferedReader( new FileReader("/Users/Charlin/Desktop/PinDatenbank.dat"));
+			    writer = new BufferedReader( new FileReader("/Users/Steffi/PinDatenbank.dat"));
 				for (Pincode pinliste : pinListenBusse) {
 					for (int j = 0; j < 2; j++) {
 						String[] pins = new String[52];
@@ -65,7 +65,7 @@ public class PinManager {
 		}
 	}
 	public void datenSpeichern() throws Exception {
-		Path daten = Paths.get("/Users/Charlin/Desktop/PinDatenbank.dat");
+		Path daten = Paths.get("/Users/Steffi/PinDatenbank.dat");
 		if (!Files.exists(daten)) {
 			Files.createFile(daten);
 		} else {
@@ -73,7 +73,7 @@ public class PinManager {
 			Files.createFile(daten);
 		}
 		
-		Path liste = Paths.get("/Users/Charlin/Desktop/PinListe.txt");
+		Path liste = Paths.get("/Users/Steffi/PinListe.txt");
 		if (!Files.exists(liste)) {
 			Files.createFile(liste);
 		} else {
@@ -82,7 +82,7 @@ public class PinManager {
 		}
 		BufferedWriter writer = null;
 		try {
-		    writer = new BufferedWriter( new FileWriter("/Users/Charlin/Desktop/PinListe.txt"));
+		    writer = new BufferedWriter( new FileWriter("/Users/Steffi/PinListe.txt"));
 		    writer.write("   Bus 1   Bus 2   Bus 3\n");
 			for (int j = 0; j <= 1; j++) {
 				writer.write(j + "\n");
@@ -93,7 +93,7 @@ public class PinManager {
 				} 
 			}
 			writer.close();
-			writer = new BufferedWriter( new FileWriter("/Users/Charlin/Desktop/PinDatenbank.dat"));
+			writer = new BufferedWriter( new FileWriter("/Users/Steffi/PinDatenbank.dat"));
 			for (Pincode pinliste : pinListenBusse) {
 				for (int j = 0; j < 2; j++) {
 					for (int i = 1; i <= 52; i++) {

@@ -26,7 +26,7 @@ public class UserBank {
 		
 	}
 	void datenLaden() throws Exception {
-		Path daten = Paths.get("/Users/Charlin/Desktop/KundenDatenbank.dat");
+		Path daten = Paths.get("/Users/KundenDatenbank.dat");
 		if (Files.exists(daten)) {
 			InputStream input = Files.newInputStream(daten);
 			ObjectInputStream ois = new ObjectInputStream(input);
@@ -34,7 +34,7 @@ public class UserBank {
 		}
 	}
 	void datenSpeichern() throws Exception {
-		Path daten = Paths.get("/Users/Charlin/Desktop/KundenDatenbank.dat");
+		Path daten = Paths.get("/Users/KundenDatenbank.dat");
 		if (!Files.exists(daten)) {
 			Files.createFile(daten);
 		} else {
