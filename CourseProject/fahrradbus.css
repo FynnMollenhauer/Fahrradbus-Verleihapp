@@ -1,0 +1,32 @@
+.root{
+    -fx-font-size: 10pt;
+    -fx-font-family: "Helvetica";
+    -fx-base: rgb(160, 160, 160);
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-vgap: 10;
+    -fx-hgap: 10;
+}
+
+.button{
+	-fx-background-color: #194ea0;
+	-fx-font-size: 11pt;
+	-fx-text-fill: white;
+}
+
+.text-field{
+	-fx-text-fill: grey;
+}
+
+.enteredTextField{
+	-fx-text-fill: black;
+}
+
+.unsichtbarButton{
+	-fx-background-color: white; 
+	-fx-border-color: white; 
+	-fx-text-fill: blue;
+	-fx-font-size: 11;
+}
+
+

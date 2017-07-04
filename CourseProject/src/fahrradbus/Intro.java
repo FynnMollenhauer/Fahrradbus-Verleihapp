@@ -20,6 +20,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Anmeldefenster, in das Email und Passwort eingetragen werden können.
+ * Weiterleitung auf die Website, Passwort ändern und Passwort vergessen-Funktion.
+ * Anlegen der nutzer-Datenbank.
+ * @author Steffi
+ *
+ */
 public class Intro {
 
 	GridPane grid;
@@ -39,7 +46,7 @@ public class Intro {
 	Label hinweis = new Label("Du erhältst dein Passwort beim Fahrradbus-Führerscheintest!");
 	Label warnung = new Label("");
 
-	Insets rand = new Insets(20, 0, 20, 20);
+	//Insets rand = new Insets(20, 0, 20, 20);
 	
 	final UserBank datenbank = new UserBank();
 	
@@ -52,6 +59,7 @@ public class Intro {
 			datenbank.nutzerAnlegen("test", "123");
 			datenbank.nutzerAnlegen("charlin.rennekamp@gmx.de", "123");
 			datenbank.nutzerAnlegen("ma-wendt@hotmail.de", "pups");
+			datenbank.nutzerAnlegen("steffi.metzner@gmail.com", "123");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -59,15 +67,18 @@ public class Intro {
 		
 		grid = new GridPane();
 		introSzene = new Scene(grid, 430, 450);
+		introSzene.getStylesheets().add("file:fahrradbus.css");
 		
 		anmelden.setPrefSize(150, 40);
 		zurück.setPrefSize(150, 40);
-		anmelden.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
-		vergessen.setStyle("-fx-background-color: white; -fx-border-color: white; -fx-text-fill: blue");
-		ändern.setStyle("-fx-background-color: white; -fx-border-color: white; -fx-text-fill: blue");
+		//anmelden.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
+		vergessen.getStyleClass().add("unsichtbarButton");
+		//setStyle("-fx-background-color: white; -fx-border-color: white; -fx-text-fill: blue");
+		ändern.getStyleClass().add("unsichtbarButton");
+		//setStyle("-fx-background-color: white; -fx-border-color: white; -fx-text-fill: blue");
 
-		email.setStyle("-fx-text-fill: grey");
-		password.setStyle("-fx-text-fill: grey");
+		//email.setStyle("-fx-text-fill: grey");
+		//password.setStyle("-fx-text-fill: grey");
 		password.setPromptText("Passwort");
 		warnung.setText("");
 
@@ -86,7 +97,8 @@ public class Intro {
 			@Override
 			public void handle(MouseEvent event) {
 				email.setText("");
-				email.setStyle("-fx-text-fill: black");
+				email.getStyleClass().add("enteredTextField");
+				//setStyle("-fx-text-fill: black");
 			}
 		};
 		email.addEventHandler(MouseEvent.MOUSE_PRESSED, emailEnter);
@@ -96,7 +108,8 @@ public class Intro {
 			@Override
 			public void handle(MouseEvent event) {
 				password.setPromptText("");
-				password.setStyle("-fx-text-fill: black");
+				password.getStyleClass().add("enteredTextField");
+				//setStyle("-fx-text-fill: black");
 			}
 		};
 		password.addEventHandler(MouseEvent.MOUSE_CLICKED, passwordEnter);
@@ -148,11 +161,11 @@ public class Intro {
 		};
 		headerView.addEventHandler(MouseEvent.MOUSE_CLICKED, LogoClick);
 		
-		grid.setStyle("-fx-background-color: white");
-		grid.setVgap(10);
-		grid.setHgap(10);
+		//grid.setStyle("-fx-background-color: white");
+		//grid.setVgap(10);
+		//grid.setHgap(10);
 		
-		grid.setPadding(rand);
+		//grid.setPadding(rand);
 		
 		return introSzene;
 	}
@@ -169,6 +182,10 @@ public class Intro {
 		zurück.setOnAction(introZurück);
 	}
 	
+	/**
+	 * gibt Text aus dem Email-Textfeld zurück
+	 * @return
+	 */
 	public String getEmail() {
 		return email.getText();
 	}

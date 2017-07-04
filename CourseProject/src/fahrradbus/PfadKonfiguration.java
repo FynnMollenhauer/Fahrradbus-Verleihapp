@@ -2,6 +2,6 @@ package fahrradbus;
 
 public class PfadKonfiguration {
 	
-	static String pfad = "/Users/Charlin/Desktop/";
+	static String pfad = "/Users/Steffi/Desktop/";
 
 }

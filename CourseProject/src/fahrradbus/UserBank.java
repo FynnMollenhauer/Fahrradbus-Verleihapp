@@ -9,9 +9,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Hashtable;
 
+/**
+ * 
+ * @author Steffi
+ *
+ */
+
 public class UserBank {
+	//"Dictionary" für nutzer anlegen
 	Hashtable<String, String> nutzer = new Hashtable<String, String>();
 
+	
 	void nutzerAnlegen(String e, String p) {
 		
 		if (!nutzer.containsKey(e)) {
