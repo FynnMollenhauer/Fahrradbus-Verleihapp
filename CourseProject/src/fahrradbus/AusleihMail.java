@@ -14,7 +14,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
+/**
+ * verschickt die Buchungsbestätigungsmail mit Pincodes, Daten, Busnummern und weiteren Hinweisen.
+ * @author Charlin
+ *
+ */
 public class AusleihMail {
 	String msg1 = "Guten Tag,\n\n"
 			+ "Deine Buchung bei fahrradbus war erfolgreich.\n"
@@ -38,9 +42,16 @@ public class AusleihMail {
 	String tage = "";
 	Properties props = new Properties();
 
+	/**
+	 * der Constructor (Methode, die aufgerufen wird, wenn ein neues Objekt der Klasse AusleihMail erzeugt wird)
+	 * @param c der fertig formatierte Text mit den generierten Pincodes 
+	 * @param tage die Ausleihtage
+	 */
 	public AusleihMail(String c, String tage) {
 		code = c;
 		ausleihTage = tage;
+		
+		//die Einstellungen für den Mailservice
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtps.host", "smtp.gmail.com");
 		props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -50,9 +61,17 @@ public class AusleihMail {
 		props.setProperty("mail.smtps.auth", "true");
 	}
 
+	/**
+	 * Versendet die Ausleih-Mail
+	 * @param address
+	 * @return true wenn die Mail erfolgreich versendet werden konnte
+	 */
 	public boolean sendMail(String address) {
+		//Sammelt die Einstellungen
 		Session session = Session.getInstance(props, null);
 
+		//Multipurpose Internet Mail Extensions
+		//Definiert das Datenormat der E-Mail
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(email));
@@ -66,8 +85,10 @@ public class AusleihMail {
 			return false;
 		}
 
+		//Bodypart enthält den Inhalt der MimeMessage
 		BodyPart messageBodyPart = new MimeBodyPart();
 		try {
+			//Zusammenfügen der Nachricht der E-Mail
 			messageBodyPart.setText(msg1 + " " + code + "Gebuchte Tage: " + ausleihTage + "\n" + msg2);
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(messageBodyPart);
@@ -77,6 +98,7 @@ public class AusleihMail {
 			return false;
 		}
 
+		//Versenden der E-Mail
 		try {
 			Transport transport = session.getTransport("smtps");
 			transport.connect(host, email, password);

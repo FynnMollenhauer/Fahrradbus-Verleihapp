@@ -10,7 +10,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-
+/**
+ *  erstellt und verwaltet die AGB-Szene.
+ * @author Charlin
+ *
+ */
 public class AGB_Bestätigung
 {
 	GridPane agbGrid = new GridPane();
@@ -41,6 +45,10 @@ public class AGB_Bestätigung
 	
 	Insets rand = new Insets(20, 0, 20, 20);
 	
+	/**
+	 * stellt die Szene AGB-Bestätigung zusammen.
+	 * @return AGB-Szene
+	 */
 	public Scene getScene() {		
 		weiter.setPrefSize(150,40);
 		weiter.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
@@ -60,20 +68,33 @@ public class AGB_Bestätigung
 		return agbSzene;
 	}
 	
+	/**
+	 * Getter für die Bestätigungsbox
+	 * @return Bestätigungs-Checkbox
+	 */
 	public CheckBox getBestätigungsBox() {
 		return bestätigung;
 	}
-	
+	/**
+	 * Getter für die Fehlermeldung
+	 * @return Textfeld für Fehlermeldung
+	 */
 	public Text getFehlermeldungsFeld() {
 		return fehlermeldung;
 	} 
-	
+	/**
+	 * Getter für die GridPane der AGB-Szene
+	 * @return GridPane der AGB-Szene
+	 */
 	public GridPane getGridPane() {
 		return agbGrid;
 	}
-	
-	public void setHandler(EventHandler<ActionEvent> handler) {
-		weiter.setOnAction(handler);
+	/**
+	 * Setter für den EventHandler des weiter-Buttons
+	 * @param weiterhandler
+	 */
+	public void setHandler(EventHandler<ActionEvent> weiterhandler) {
+		weiter.setOnAction(weiterhandler);
 	}
 
 }

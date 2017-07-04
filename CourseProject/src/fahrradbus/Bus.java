@@ -1,5 +1,9 @@
 package fahrradbus;
-
+/**
+ * Stellt einen Bus mit Verfügbarkeitszeitraum dar.
+ * @author Charlin
+ *
+ */
 public class Bus {
 	int nummer;
 	String zeitGeblockt;

@@ -12,7 +12,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
+/**
+ * Erstellt und verwaltet die Änder-Szene.
+ * Setzt Passwort-Änderungen durch den User um. 
+ * @author Charlin
+ *
+ */
 public class ÄnderScreen {
 	
 	GridPane änderPane;
@@ -22,22 +27,28 @@ public class ÄnderScreen {
 	ImageView headerView1 = new ImageView("Header_FaB04.jpg");
 	
 	TextField email1 = new TextField("E-Mail-Adresse");
-	PasswordField password1 = new PasswordField();
+	PasswordField aktuellespasswort = new PasswordField();
 	
-	PasswordField passwordNeu = new PasswordField();
-	PasswordField passwordNeu1 = new PasswordField();
+	PasswordField passwortNeu = new PasswordField();
+	PasswordField passwortNeuBestätigung = new PasswordField();
 	
 	Button prüfen = new Button("Passwort überprüfen");
 	Button verbindlichÄndern = new Button("Passwort verbindlich ändern");
 	Button zurück = new Button("Zurück zur Anmeldung");
 		
-	final UserBank datenbank = new UserBank();
+	UserBank datenbank = new UserBank();
 	
+	/**
+	 * stellt die Szene Änderscreen zusammen.
+	 * Setzt die Passwort-Änderung in EventHandler um.
+	 * @return Änder-Szene
+	 */
 	public Scene getScene() {
+		//Falls beim Daten Laden etwas schief geht, schreibt die Methode printStackTrace die zuletzt aufgerufenen Methoden
+		//in die Konsole.
 		try {
 			datenbank.datenLaden();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -52,16 +63,16 @@ public class ÄnderScreen {
 		zurück.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 
 		email1.setStyle("-fx-text-fill: grey");
-		password1.setStyle("-fx-text-fill: grey");
-		password1.setPromptText("Passwort");
+		aktuellespasswort.setStyle("-fx-text-fill: grey");
+		aktuellespasswort.setPromptText("Passwort");
 	
-		passwordNeu.setStyle("-fx-text-fill: grey");
-		passwordNeu.setPromptText("Passwort");
-		passwordNeu1.setStyle("-fx-text-fill: grey");
-		passwordNeu1.setPromptText("Passwort");
+		passwortNeu.setStyle("-fx-text-fill: grey");
+		passwortNeu.setPromptText("Passwort");
+		passwortNeuBestätigung.setStyle("-fx-text-fill: grey");
+		passwortNeuBestätigung.setPromptText("Passwort");
 
-		VBox combo1 = new VBox(0, email1, password1);
-		VBox comboPassword = new VBox(0, passwordNeu, passwordNeu1);
+		VBox combo1 = new VBox(0, email1, aktuellespasswort);
+		VBox comboPassword = new VBox(0, passwortNeu, passwortNeuBestätigung);
 		änderPane.add(headerView1, 0, 1);
 		änderPane.addRow(2, combo1);
 		änderPane.addRow(3, prüfen);
@@ -69,7 +80,7 @@ public class ÄnderScreen {
 		änderPane.addRow(5, verbindlichÄndern);
 		änderPane.addRow(6, zurück);
 		
-
+		//setzt das E-Mail-Textfeld zurück, wenn es angeklickt wird.
 		EventHandler<MouseEvent> emailEnter1 = new EventHandler<MouseEvent>() {
 
 			@Override
@@ -80,31 +91,26 @@ public class ÄnderScreen {
 		};
 		email1.addEventHandler(MouseEvent.MOUSE_PRESSED, emailEnter1);
 
-		EventHandler<MouseEvent> passwordEnter1= new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				password1.setPromptText("");
-				password1.setStyle("-fx-text-fill: black");
-			}
-		};
-		password1.addEventHandler(MouseEvent.MOUSE_CLICKED, passwordEnter1);
-		passwordNeu.addEventHandler(MouseEvent.MOUSE_CLICKED, passwordEnter1);
-
+		//Hier wird durch einen EventHandler überprüft, ob E-Mail und Passwort übereinstimmen 
+		//und in der UserBank vorhanden sind.
 		EventHandler<ActionEvent> überprüfen = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				String e = email1.getText();
-				String p = password1.getText();
+				String p = aktuellespasswort.getText();
 				String prüfen1 = datenbank.nutzer.get(e);
+				//Hier wird geprüft, ob sie übereinstimmen
 				if (p.equals(prüfen1)) {
 					System.out.println("Test..es funktioniert");
+					//wenn sie übereinstimmen, wird der verbindlichÄndern-Button freigeschaltet.
 					verbindlichÄndern.setDisable(false);
 				} else {
+					//wenn sie nicht übereinstimmen oder nicht in der UserBank vorhanden sind,
+					//wird eine Fehlermeldung eingeblendet.
 					System.out.println("es funktioniert nicht :(");
 					email1.setStyle("-fx-text-fill: red");
 					email1.setText("Falsches Passwort oder Benutzername!");
-					password1.setText("");
+					aktuellespasswort.setText("");
 				}
 			}
 		};
@@ -118,20 +124,30 @@ public class ÄnderScreen {
 		return änderSzene;
 	}
 	
+	/**
+	 * ändert das Passwort in der UserBank.
+	 */
 	public void passwortÄndern() {
 		try {
 			datenbank.datenLaden();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		datenbank.passwortÄndern(email1.getText(), passwordNeu.getText());
+		datenbank.passwortÄndern(email1.getText(), passwortNeu.getText());
 	}
 	
+	/**
+	 * Setter für den EventHandler des verbindlichÄndern-Buttons
+	 * @param passwortÄndern
+	 */
 	public void setÄndernEventHandler(EventHandler<ActionEvent> passwortÄndern) {
 		verbindlichÄndern.setOnAction(passwortÄndern);
 	}
 	
+	/**
+	 * Setter für den EventHandler des zurück-Buttons
+	 * @param zuückHandler
+	 */
 	public void setZurückEventHandler(EventHandler<ActionEvent> zuückHandler) {
 		zurück.setOnAction(zuückHandler);
 	}
