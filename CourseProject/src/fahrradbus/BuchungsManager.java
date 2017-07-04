@@ -39,8 +39,17 @@ public class BuchungsManager extends Application {
 	@Override
 	public void start(final Stage hauptScreen) throws Exception {
 		hauptScreen.setTitle("Fahrradbus");
-		hauptScreen.setScene(vorIntroScreen.getScene());
+		scene = vorIntroScreen.getScene();
+		hauptScreen.setScene(scene);
 		hauptScreen.show();
+		
+		scene.addEventFilter(KeyEvent.KEY_PRESSED, event->{
+            if (event.getCode() == KeyCode.ENTER) {
+            	scene = intro.getScene();
+            	hauptScreen.setScene(scene);
+				hauptScreen.show();
+            }
+        });
 		
 		busBank.busseAnlegen();
 		busBank.datenLaden();
@@ -76,7 +85,15 @@ public class BuchungsManager extends Application {
 		EventHandler<ActionEvent> introZurück = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				hauptScreen.setScene(vorIntroScreen.getScene());
+				scene = vorIntroScreen.getScene();
+				scene.addEventFilter(KeyEvent.KEY_PRESSED, event2->{
+		            if (event2.getCode() == KeyCode.ENTER) {
+		            	scene = intro.getScene();
+		            	hauptScreen.setScene(scene);
+						hauptScreen.show();
+		            }
+		        });
+				hauptScreen.setScene(scene);
 				hauptScreen.show();
 			}
 		};

@@ -19,7 +19,7 @@ public class BusBank {
 		busse.put(2, "");
 		busse.put(3, "");
 		
-		Path daten = Paths.get("/Users/Steffi/BusDatenbank.dat");
+		Path daten = Paths.get(PfadKonfiguration.pfad + "BusDatenbank.dat");
 		if (!Files.exists(daten)) {
 			Files.createFile(daten);
 			OutputStream output = Files.newOutputStream(daten);
@@ -29,7 +29,7 @@ public class BusBank {
 		}
 	}
 	void datenLaden() throws Exception {
-		Path daten = Paths.get("/Users/BusDatenbank.dat");
+		Path daten = Paths.get(PfadKonfiguration.pfad + "BusDatenbank.dat");
 		if (Files.exists(daten)) {
 			InputStream input = Files.newInputStream(daten);
 			ObjectInputStream ois = new ObjectInputStream(input);
@@ -37,7 +37,7 @@ public class BusBank {
 		}
 	}
 	void datenSpeichern() throws Exception {
-		Path daten = Paths.get("/Users/BusDatenbank.dat");
+		Path daten = Paths.get(PfadKonfiguration.pfad + "BusDatenbank.dat");
 		if (!Files.exists(daten)) {
 			Files.createFile(daten);
 		} else {

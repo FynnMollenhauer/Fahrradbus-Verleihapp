@@ -4,6 +4,8 @@ import java.util.List;
 import java.time.LocalDate;
 import java.util.Locale;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ComboBoxBase;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -38,16 +41,20 @@ public class Calendar {
         vbox.setStyle("-fx-padding: 10;");
         Scene scene = new Scene(vbox, 400, 400);
         entleihenDatePicker = new DatePicker();
+        entleihenDatePicker.setEditable(false);
         rückgabeDatePicker = new DatePicker();
-        entleihenDatePicker.setValue(LocalDate.now());
-        rückgabeDatePicker.setValue(entleihenDatePicker.getValue().plusDays(1));
-        rückgabeDatePicker.hide();
+        rückgabeDatePicker.setEditable(false);
         
         buchen.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 		buchen.setPrefSize(150, 40);
+		buchen.setDisable(true);
         
         entleihenDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-        rückgabeDatePicker.setValue(null);
+        	rückgabeDatePicker.setValue(null);
+        });
+        
+        rückgabeDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+        	buchen.setDisable(false);
         });
         
         entleihenDatePicker.setDayCellFactory(picker -> new DateCell() {
@@ -62,8 +69,12 @@ public class Calendar {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                setDisable(empty || date.isBefore(entleihenDatePicker.getValue()) || 
-                isDateBlocked(date) || date.isAfter(entleihenDatePicker.getValue().plusDays(2)));
+                if (entleihenDatePicker.getValue() == null) {
+                	setDisable(true);
+                } else {
+	                setDisable(empty || date.isBefore(entleihenDatePicker.getValue()) || 
+	                isDateBlocked(date) || date.isAfter(entleihenDatePicker.getValue().plusDays(2)));
+                }
             }
         });
         
@@ -75,6 +86,13 @@ public class Calendar {
         	    );
         anzahlPlätze = new ComboBox<String>(anzahlPlätzeList);
         anzahlPlätze.getSelectionModel().selectFirst();
+        anzahlPlätze.valueProperty().addListener(new ChangeListener<String>() {
+            @Override public void changed(ObservableValue ov, String t, String t1) {
+            	   entleihenDatePicker.setValue(null);
+            	   rückgabeDatePicker.setValue(null);
+            	   buchen.setDisable(true);
+              }    
+          });
         
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
