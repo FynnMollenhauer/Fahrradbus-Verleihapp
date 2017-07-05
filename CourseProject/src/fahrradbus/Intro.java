@@ -61,7 +61,6 @@ public class Intro {
 			datenbank.nutzerAnlegen("ma-wendt@hotmail.de", "pups");
 			datenbank.nutzerAnlegen("steffi.metzner@gmail.com", "123");
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

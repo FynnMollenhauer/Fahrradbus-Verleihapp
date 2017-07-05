@@ -20,7 +20,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-  
+
+/**
+ * erstellt die Kalender-Szene und integriert die geblockten Tage
+ * aus der BusBank.
+ * @author Charlin
+ *
+ */
 public class Calendar {
   
 	private List<Bus> busse;
@@ -34,8 +40,13 @@ public class Calendar {
     	this.busse = busse;
     }
   
+    /**
+     * stellt die Szene Calendar zusammen.
+     * @return die Calendar-Szene
+     */
     public Scene getScene() {
-	    Locale.setDefault(Locale.US); 
+    	//Infos zur Zeitzone
+	    Locale.setDefault(Locale.GERMANY); 
     
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
