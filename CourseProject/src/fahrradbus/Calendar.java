@@ -52,12 +52,14 @@ public class Calendar {
         vbox.setStyle("-fx-padding: 10;");
         Scene scene = new Scene(vbox, 400, 400);
         entleihenDatePicker = new DatePicker();
+        //verhindert, dass der Nutzer das Textfeld des DatePickers bearbeiten kann
         entleihenDatePicker.setEditable(false);
         rückgabeDatePicker = new DatePicker();
         rückgabeDatePicker.setEditable(false);
         
         buchen.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 		buchen.setPrefSize(150, 40);
+		//deaktiviert den Buchen-Button
 		buchen.setDisable(true);
         
         entleihenDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
@@ -65,6 +67,7 @@ public class Calendar {
         });
         
         rückgabeDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
+        	//Buchen-Button wird aktiviert, wenn der Rückgabe-Datepicker einen Wert erhält.
         	buchen.setDisable(false);
         });
         
