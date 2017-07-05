@@ -47,8 +47,6 @@ public class VorIntroScreen {
 			+ "Sollten dennoch weitere Fragen auftauchen,\nstehen wir gerne per E-Mail (info@fahrradbus.com) oder in Notfällen auch telefonisch\nunter folgender Nummer zur Verfügung: 0176 3039 1523\n\n"
 			+ "Dein Fahrradbus-Team!");
 	
-	//CSS:
-	//Insets rand = new Insets(20, 0, 20, 20);
 	
 	/**
 	 * Methode, um die Szene "VorIntroScreen" im Buchungsmanager aufrufen zu können.
@@ -63,15 +61,10 @@ public class VorIntroScreen {
 	
 		infos.setPrefSize(590, 600);
 		infos.setEditable(false);
-		// zurAnmeldung.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 		zurAnmeldung.setPrefSize(150, 40);
 		
 		vorIntroGrid.addColumn(0, infos);
 		vorIntroGrid.addRow(1, zurAnmeldung);
-		// vorIntroGrid.setStyle("-fx-background-color: white");
-		// CSS: vorIntroGrid.setVgap(10);
-		// CSS: vorIntroGrid.setHgap(10);
-		// CSS: vorIntroGrid.setPadding(rand);
 		
 		return vorIntroSzene;
 	}

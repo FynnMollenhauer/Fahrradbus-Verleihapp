@@ -47,17 +47,19 @@ public class Calendar {
     public Scene getScene() {
     	//Infos zur Zeitzone
 	    Locale.setDefault(Locale.GERMANY); 
-    
+	    
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
-        Scene scene = new Scene(vbox, 400, 400);
+        Scene calendarScene = new Scene(vbox, 400, 400);
         entleihenDatePicker = new DatePicker();
+        
+        calendarScene.getStylesheets().add("file:fahrradbus.css");
+        
         //verhindert, dass der Nutzer das Textfeld des DatePickers bearbeiten kann
         entleihenDatePicker.setEditable(false);
         rückgabeDatePicker = new DatePicker();
         rückgabeDatePicker.setEditable(false);
         
-        buchen.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 		buchen.setPrefSize(150, 40);
 		//deaktiviert den Buchen-Button
 		buchen.setDisable(true);
@@ -117,8 +119,6 @@ public class Calendar {
           });
         
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
         Label plätzeLabel = new Label("Gewünschte Anzahl an Plätzen:");
         gridPane.add(plätzeLabel, 0, 0);
         gridPane.add(anzahlPlätze, 0, 1);
@@ -133,7 +133,7 @@ public class Calendar {
         gridPane.add(buchen, 0, 6);
         vbox.getChildren().add(gridPane);
         
-        return scene;
+        return calendarScene;
     }
     
     /**

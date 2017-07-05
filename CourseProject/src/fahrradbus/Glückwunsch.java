@@ -25,10 +25,11 @@ public class Glückwunsch {
 	Label glück = new Label(
 			"Glückwunsch zur Reservierung!\nDu erhältst alle näheren Infos die du\nzum Ausleihen brauchst per E-mail.\nDen Fahrradbus findest du Am Sande 1.");
 
-	Insets rand = new Insets(20, 0, 20, 20);
+	//Insets rand = new Insets(20, 0, 20, 20);
 
 	public Scene getScene() {
-
+		glückwunschSzene.getStylesheets().add("file:fahrradbus.css");
+		
 		glück.setLayoutX(70);
 		glück.setLayoutY(165);
 		headerView.setLayoutX(20);
@@ -61,8 +62,8 @@ public class Glückwunsch {
 		};
 		headerView.addEventHandler(MouseEvent.MOUSE_CLICKED, LogoClick);
 
-		glückPane.setStyle("-fx-background-color: white");
-		glückPane.setPadding(rand);
+		//glückPane.setStyle("-fx-background-color: white");
+		//glückPane.setPadding(rand);
 		
 		return glückwunschSzene;
 	}

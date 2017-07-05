@@ -17,7 +17,7 @@ import java.util.Hashtable;
 
 public class UserBank {
 	/**
-	 * die Hashtable nutzer enthält ordnet zwei Strings einander zu 
+	 * die Hashtable nutzer ordnet zwei Strings einander zu 
 	 */
 	Hashtable<String, String> nutzer = new Hashtable<String, String>();
 	

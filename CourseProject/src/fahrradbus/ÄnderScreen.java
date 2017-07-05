@@ -55,20 +55,16 @@ public class ÄnderScreen {
 		änderPane = new GridPane();
 		änderSzene = new Scene(änderPane, 430, 500);
 		
+		änderSzene.getStylesheets().add("file:fahrradbus.css");
+		
 		prüfen.setPrefSize(150, 40);
-		prüfen.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 		verbindlichÄndern.setDisable(true);
 		
 		zurück.setPrefSize(230, 40);
-		zurück.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 
-		email1.setStyle("-fx-text-fill: grey");
-		aktuellespasswort.setStyle("-fx-text-fill: grey");
 		aktuellespasswort.setPromptText("Passwort");
 	
-		passwortNeu.setStyle("-fx-text-fill: grey");
 		passwortNeu.setPromptText("Passwort");
-		passwortNeuBestätigung.setStyle("-fx-text-fill: grey");
 		passwortNeuBestätigung.setPromptText("Passwort");
 
 		VBox combo1 = new VBox(0, email1, aktuellespasswort);
@@ -86,7 +82,7 @@ public class ÄnderScreen {
 			@Override
 			public void handle(MouseEvent event) {
 				email1.setText("");
-				email1.setStyle("-fx-text-fill: black");
+				email1.getStyleClass().add("enteredTextField");
 			}
 		};
 		email1.addEventHandler(MouseEvent.MOUSE_PRESSED, emailEnter1);
@@ -108,7 +104,7 @@ public class ÄnderScreen {
 					//wenn sie nicht übereinstimmen oder nicht in der UserBank vorhanden sind,
 					//wird eine Fehlermeldung eingeblendet.
 					System.out.println("es funktioniert nicht :(");
-					email1.setStyle("-fx-text-fill: red");
+					email1.getStyleClass().add("warnung");
 					email1.setText("Falsches Passwort oder Benutzername!");
 					aktuellespasswort.setText("");
 				}
@@ -116,11 +112,6 @@ public class ÄnderScreen {
 		};
 		prüfen.setOnAction(überprüfen);
 
-		änderPane.setStyle("-fx-background-color: white");
-		änderPane.setVgap(10);
-		änderPane.setHgap(10);
-		Insets rand = new Insets(20, 0, 20, 20);
-		änderPane.setPadding(rand);
 		return änderSzene;
 	}
 	

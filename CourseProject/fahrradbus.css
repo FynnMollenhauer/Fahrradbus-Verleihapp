@@ -14,12 +14,20 @@
 	-fx-text-fill: white;
 }
 
-.text-field{
+.textField{
 	-fx-text-fill: grey;
 }
 
 .enteredTextField{
 	-fx-text-fill: black;
+}
+
+.warnung{
+	-fx-text-fill: red;
+}
+
+.bestätigung{
+	-fx-text-fill: green;
 }
 
 .unsichtbarButton{

@@ -43,25 +43,26 @@ public class AGB_Bestätigung
 	
 	Button weiter = new Button("Weiter");
 	
-	Insets rand = new Insets(20, 0, 20, 20);
+	//Insets rand = new Insets(20, 0, 20, 20);
 	
 	/**
 	 * stellt die Szene AGB-Bestätigung zusammen.
 	 * @return AGB-Szene
 	 */
 	public Scene getScene() {		
+		agbSzene.getStylesheets().add("file:fahrradbus.css");
 		weiter.setPrefSize(150,40);
-		weiter.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
+		//weiter.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
 		AGB.setPrefSize(560, 400);
 				
 		agbGrid.add(AGB, 0, 0);
 		agbGrid.addRow(1, bestätigung);
 		agbGrid.addRow(2, weiter);
 		
-		agbGrid.setStyle("-fx-background-color: white");
-		agbGrid.setVgap(10);
-		agbGrid.setHgap(10);
-		agbGrid.setPadding(rand);
+		//agbGrid.setStyle("-fx-background-color: white");
+		//agbGrid.setVgap(10);
+		//agbGrid.setHgap(10);
+		//agbGrid.setPadding(rand);
 		
 		fehlermeldung.setFill(Color.RED);
 		
@@ -82,6 +83,7 @@ public class AGB_Bestätigung
 	public Text getFehlermeldungsFeld() {
 		return fehlermeldung;
 	} 
+	
 	/**
 	 * Getter für die GridPane der AGB-Szene
 	 * @return GridPane der AGB-Szene
@@ -89,6 +91,7 @@ public class AGB_Bestätigung
 	public GridPane getGridPane() {
 		return agbGrid;
 	}
+	
 	/**
 	 * Setter für den EventHandler des weiter-Buttons
 	 * @param weiterhandler

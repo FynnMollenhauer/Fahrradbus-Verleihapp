@@ -46,13 +46,11 @@ public class Intro {
 	Label hinweis = new Label("Du erhältst dein Passwort beim Fahrradbus-Führerscheintest!");
 	Label warnung = new Label("");
 
-	//Insets rand = new Insets(20, 0, 20, 20);
 	
 	final UserBank datenbank = new UserBank();
 	
 	public Scene getScene() {
-		// introSzene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-		// BEISPIEL!!!
+	
 		try {
 			datenbank.datenLaden();
 			datenbank.nutzerAnlegen("fynn@live.de", "passwort123");
@@ -70,14 +68,10 @@ public class Intro {
 		
 		anmelden.setPrefSize(150, 40);
 		zurück.setPrefSize(150, 40);
-		//anmelden.setStyle("-fx-background-color: #194ea0; -fx-text-fill: #7892ba");
-		vergessen.getStyleClass().add("unsichtbarButton");
-		//setStyle("-fx-background-color: white; -fx-border-color: white; -fx-text-fill: blue");
-		ändern.getStyleClass().add("unsichtbarButton");
-		//setStyle("-fx-background-color: white; -fx-border-color: white; -fx-text-fill: blue");
 
-		//email.setStyle("-fx-text-fill: grey");
-		//password.setStyle("-fx-text-fill: grey");
+		vergessen.getStyleClass().add("unsichtbarButton");
+		ändern.getStyleClass().add("unsichtbarButton");
+
 		password.setPromptText("Passwort");
 		warnung.setText("");
 
@@ -97,18 +91,16 @@ public class Intro {
 			public void handle(MouseEvent event) {
 				email.setText("");
 				email.getStyleClass().add("enteredTextField");
-				//setStyle("-fx-text-fill: black");
 			}
 		};
 		email.addEventHandler(MouseEvent.MOUSE_PRESSED, emailEnter);
-
+		
 		EventHandler<MouseEvent> passwordEnter = new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				password.setPromptText("");
 				password.getStyleClass().add("enteredTextField");
-				//setStyle("-fx-text-fill: black");
 			}
 		};
 		password.addEventHandler(MouseEvent.MOUSE_CLICKED, passwordEnter);
@@ -119,17 +111,17 @@ public class Intro {
 				String e = email.getText();
 
 				if (e.equals("")) {
-					email.setStyle("-fx-text-fill: red");
+					email.getStyleClass().add("warnung");
 					email.setText("Bitte E-Mail-Adresse eintragen!");
 				} else {
 					if (datenbank.nutzer.containsKey(e)) {
 						String p = datenbank.nutzer.get(e);
 						VergessenMail mail = new VergessenMail(e, p, "Dein Passwort");
 						mail.sendMail(e);
-						email.setStyle("-fx-text-fill: green");
+						email.getStyleClass().add("bestätigung");
 						email.setText("Eine E-Mail" + " wurde an ihre E-Mail-Adresse gesandt!");
 					} else {
-						email.setStyle("-fx-text-fill: red");
+						email.getStyleClass().add("warnung");
 						email.setText("E-Mail-Adresse wurde nicht im System gefunden!");
 					}
 				}
@@ -160,12 +152,6 @@ public class Intro {
 		};
 		headerView.addEventHandler(MouseEvent.MOUSE_CLICKED, LogoClick);
 		
-		//grid.setStyle("-fx-background-color: white");
-		//grid.setVgap(10);
-		//grid.setHgap(10);
-		
-		//grid.setPadding(rand);
-		
 		return introSzene;
 	}
 
@@ -195,7 +181,6 @@ public class Intro {
 		try {
 			datenbank.datenLaden();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		String prüfen1 = datenbank.nutzer.get(e);
@@ -203,7 +188,7 @@ public class Intro {
 			return true;
 		}
 		warnung.setText("Passwort oder E-mail falsch");
-		warnung.setStyle("-fx-text-fill: red");
+		warnung.getStyleClass().add("warnung");
 		return false;
 	}
 
