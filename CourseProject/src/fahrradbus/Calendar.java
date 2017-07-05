@@ -62,44 +62,52 @@ public class Calendar {
 		//deaktiviert den Buchen-Button
 		buchen.setDisable(true);
         
+		//wird das Entleihdatum nach dem Rückgabedatum geändert, wird das Rückgabedatum wieder zurück gesetzt
         entleihenDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
         	rückgabeDatePicker.setValue(null);
         });
         
+    	//Buchen-Button wird aktiviert, wenn der Rückgabe-Datepicker einen Wert erhält.
         rückgabeDatePicker.valueProperty().addListener((ov, oldValue, newValue) -> {
-        	//Buchen-Button wird aktiviert, wenn der Rückgabe-Datepicker einen Wert erhält.
         	buchen.setDisable(false);
         });
         
+       
         entleihenDatePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
+                // deaktiviere die Auswahl für alle Daten, die vor dem aktuellen Datum liegen
                 setDisable(empty || date.isBefore(LocalDate.now()) || isDateBlocked(date));
             }
         });
         
+        //legt fest, welche Zellen des rückgabeDatePickers aktiv sind und welche nicht
         rückgabeDatePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
+                // aktiviere den RÜckgabe-Datepicker erst, wenn das Entleihdatum angegeben wurde.
                 if (entleihenDatePicker.getValue() == null) {
                 	setDisable(true);
-                } else {
+                } else { //blockiere die Tage vor dem Entleihdatum, gebuchte Tage und alle, die mehr als 2 Tage nach dem Entleihdatum liegen.
 	                setDisable(empty || date.isBefore(entleihenDatePicker.getValue()) || 
 	                isDateBlocked(date) || date.isAfter(entleihenDatePicker.getValue().plusDays(2)));
                 }
             }
         });
         
+        //Array mit den Werten der Combobox anlegen
         ObservableList<String> anzahlPlätzeList = 
         	    FXCollections.observableArrayList(
         	        "2",
         	        "4",
         	        "6"
         	    );
+        //Array anzahlPlätzeList in die ComboBox einspeisen
         anzahlPlätze = new ComboBox<String>(anzahlPlätzeList);
         anzahlPlätze.getSelectionModel().selectFirst();
+        //setze die Datepicker zurück, wenn die Anzahl der Plätze geändert wird und deaktiviere den buchen-Button
         anzahlPlätze.valueProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue ov, String t, String t1) {
             	   entleihenDatePicker.setValue(null);
@@ -128,9 +136,16 @@ public class Calendar {
         return scene;
     }
     
+    /**
+     * Prüfe, ob genug Plätze (ausgewählt aus der ComboBox)
+     * für date verfügbar sind.
+     * @param date - Datumswert
+     * @return ist das abgefragte Datum geblockt? 
+     */
     public boolean isDateBlocked(LocalDate date) {
     	String[] dates;
     	int freiePlätze = 6;
+    	//für jeden Bus aus der Liste Busse
     	for (Bus bus : busse) {
     		dates = bus.zeitGeblockt.split(":");
     		if (!(dates.length == 1 && dates[0].equals(""))) {
@@ -141,6 +156,7 @@ public class Calendar {
     			}
     		}
     	}
+    	// gib "nicht geblockt" zurück, wenn die Anzahl der freien Plätze größer/gleich als die Anzahl der ausgewählten Plätze (Combobox) ist.
     	if (freiePlätze >= Integer.parseInt(anzahlPlätze.getValue())) {
     		return false;
     	}

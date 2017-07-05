@@ -10,42 +10,58 @@ import java.nio.file.Paths;
 import java.util.Hashtable;
 
 /**
- * 
+ * Methoden zum Anlegen und Verwalten der Userdaten.
  * @author Steffi
  *
  */
 
 public class UserBank {
-	//"Dictionary" für nutzer anlegen
+	/**
+	 * die Hashtable nutzer enthält ordnet zwei Strings einander zu 
+	 */
 	Hashtable<String, String> nutzer = new Hashtable<String, String>();
-
 	
+	/**
+	 * neuen Nutzer mit Email und Passwort in der Hashtable nutzer anlegen und speichern
+	 * @param e Email
+	 * @param p Passwort
+	 */
 	void nutzerAnlegen(String e, String p) {
-		
 		if (!nutzer.containsKey(e)) {
 			nutzer.put(e, p);
 			try {
 				datenSpeichern();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
 		
 	}
+	
+	/**
+	 * Laden der Daten in die Hashtable nutzer (
+	 * @throws Exception
+	 */
 	void datenLaden() throws Exception {
 		Path daten = Paths.get(PfadKonfiguration.pfad + "KundenDatenbank.dat");
+		//Wenn das "daten"-File schon existiert, rufe die nutzer-Daten daraus ab
 		if (Files.exists(daten)) {
 			InputStream input = Files.newInputStream(daten);
 			ObjectInputStream ois = new ObjectInputStream(input);
 			nutzer = (Hashtable<String, String>) ois.readObject();
 		}
 	}
+	
+	/**
+	 * Abspeichern der Nutzerdaten aus der Hashtable nutzer.
+	 * @throws Exception
+	 */
 	void datenSpeichern() throws Exception {
 		Path daten = Paths.get(PfadKonfiguration.pfad + "KundenDatenbank.dat");
+		//erstelle das daten-File, falls es noch nicht existiert
 		if (!Files.exists(daten)) {
 			Files.createFile(daten);
-		} else {
+		} else { //sonst lösche das aktuelle daten-File und erstelle ein neues.
 			Files.deleteIfExists(daten);
 			Files.createFile(daten);
 		}
@@ -54,13 +70,18 @@ public class UserBank {
 		
 		oos.writeObject(nutzer);
 	}
+	
+	/**
+	 * überschreibe das alte daten-File mit den neuen Daten des Nutzers.
+	 * @param e Email
+	 * @param p Passwort
+	 */
 	void passwortÄndern(String e, String p) {
 		nutzer.remove(e);
 		nutzer.put(e, p);
 		try {
 			datenSpeichern();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
