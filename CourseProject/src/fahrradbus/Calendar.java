@@ -147,10 +147,15 @@ public class Calendar {
     	int freiePlätze = 6;
     	//für jeden Bus aus der Liste Busse
     	for (Bus bus : busse) {
+    		//String mit den geblockten Tagen in ein Array aufteilen
     		dates = bus.zeitGeblockt.split(":");
+    		//Wenn es geblockte Tage gibt
     		if (!(dates.length == 1 && dates[0].equals(""))) {
+    			//für jeden geblockten Tag
     			for (int i = 0; i < dates.length; i++) {
+    				//Wenn der Bus für den Tag bereits geblocked ist
     				if (LocalDate.parse(dates[i]).equals(date)) {
+    					//entferne ein Busmodul (2 Plätze)
     					freiePlätze -= 2;
     				}
     			}
@@ -163,19 +168,34 @@ public class Calendar {
     	return true;
     }
     
+    /**
+	 * Setter für den EventHandler des buchen-Buttons
+	 * @param weiterhandler
+	 */
     public void setBuchenEventHandler(EventHandler<ActionEvent> buchenHandler) {
 		buchen.setOnAction(buchenHandler);
 	}
 
+    /**
+  	 * Getter für die Anzahl der Plätze
+  	 * @return Anzahl der gebuchten Plätze
+  	 */
 	public int getAnzahlPlätze() {
 		return Integer.parseInt(anzahlPlätze.getValue());
 	}
 
+	/**
+	 * Getter für die gebuchten Tage
+	 * @return Die gebuchten Tage
+	 */
 	public String getDates() {
 		String dates = entleihenDatePicker.getValue().toString();
 		LocalDate datum = entleihenDatePicker.getValue();
+		//Für alle Tage vom entleih Datum bis zum rückgabe Datum
 		while (!datum.equals(rückgabeDatePicker.getValue())) {
+			//gehe ein Tag weiter
 			datum = datum.plusDays(1);
+			//den Tag zu den String für die gebuchten Tage hinzufügen
 			dates = dates + ":" + datum.toString();
 		}
 		return dates;
