@@ -65,6 +65,7 @@ public class BuchungsManager extends Application {
 		//Busse mit den Informationen zu geblockten Tagen werden aus der BusBank geholt
 		busse = busBank.getBusse();
 		
+		//calendar erzeugen, mit der Liste busse füllen
 		calendar = new Calendar(busse);
 		
 		//Hier werden die Pincodes angelegt
@@ -203,6 +204,7 @@ public class BuchungsManager extends Application {
         calendar.setBuchenEventHandler(buchenButton);
         
 	}
+	
 	/**
 	 * Es wird eine Liste mit den freien Bussen für die gewünschten Buchungstage
 	 * erstellt.

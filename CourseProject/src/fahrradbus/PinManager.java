@@ -13,20 +13,38 @@ import java.util.List;
 
 public class PinManager {
 	
+	/** 
+	 * enthält die Pins für die folgenden zwei Jahre für alle drei Busobjekte
+	 */
 	private List<Pincode> pinListenBusse;
 	
+	/**
+	 * sucht aus der Liste der Pins abgefragte Pins für Kalenderwoche und Bus raus
+	 * @param busNummer
+	 * @param jahr
+	 * @param kalenderwoche
+	 * @return Pincode zum ausgewählten Bus und der Kalenderwoche
+	 */
 	public String getPincode(int busNummer, int jahr, int kalenderwoche) {
 		return pinListenBusse.get(busNummer - 1).getPincode(jahr, kalenderwoche);
 	}
 	
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void pinsAnlegen() throws Exception {
 		pinListenBusse = new ArrayList<Pincode>();
+		//lege drei ArrayLists an.
 		pinListenBusse.add(new Pincode());
 		pinListenBusse.add(new Pincode());
 		pinListenBusse.add(new Pincode());
 		
 		
 		Path daten = Paths.get(PfadKonfiguration.pfad + "PinDatenbank.dat");
+		//wenn die Datei "PinDatenbank.dat" nicht existiert,
+		//erzeuge drei unterschiedliche ArrayLists mit den Codes über zwei Jahre
+		//für jeden Bus.
 		if (!Files.exists(daten)) {
 			pinListenBusse.get(0).init();
 			pinListenBusse.get(1).init();
@@ -64,8 +82,14 @@ public class PinManager {
 			}
 		}
 	}
+	
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void datenSpeichern() throws Exception {
 		Path daten = Paths.get(PfadKonfiguration.pfad + "PinDatenbank.dat");
+		//falls die Datei "PinDatenbank.dat" noch nicht existiert, erzeuge sie, sonst ersetze sie durch eine neue Datei
 		if (!Files.exists(daten)) {
 			Files.createFile(daten);
 		} else {
@@ -74,6 +98,7 @@ public class PinManager {
 		}
 		
 		Path liste = Paths.get(PfadKonfiguration.pfad + "PinListe.txt");
+		//falls die Datei "PinListe.txt" noch nicht existiert, erzeuge sie. Sonst ersetze sie.
 		if (!Files.exists(liste)) {
 			Files.createFile(liste);
 		} else {
@@ -82,19 +107,29 @@ public class PinManager {
 		}
 		BufferedWriter writer = null;
 		try {
-		    writer = new BufferedWriter( new FileWriter(PfadKonfiguration.pfad + "PinListe.txt"));
+		    //erstelle writer, der in die Datei "PinListe.txt" schreibt
+			writer = new BufferedWriter( new FileWriter(PfadKonfiguration.pfad + "PinListe.txt"));
+		    //Schreibe: 
 		    writer.write("   Bus 1   Bus 2   Bus 3\n");
-			for (int j = 0; j <= 1; j++) {
-				writer.write(j + "\n");
+			// mit j = 0, danach mit j= 1: (Übergabe für aktuelles und nächstes Jahr)
+		    for (int j = 0; j <= 1; j++) {
+				//schreibe j, dann Zeilenumbruch
+		    	writer.write(j + "\n");
+				//Wiederhole 52 mal:
 				for (int i = 0; i < 52; i++) {
+					//Schreibe: Kalenderwoche, Pincode für ersten Bus in dieser Woche, Pincode für zweiten 
+					//Bus in dieser Woche, Pincode für dritten Bus in dieser Woche. 
 					writer.write((i + 1) + "  " + pinListenBusse.get(0).getPincode(j, i + 1) + "   " + 
 							pinListenBusse.get(1).getPincode(j, i + 1) + "   " + 
 							pinListenBusse.get(2).getPincode(j, i + 1) + "\n");
 				} 
 			}
 			writer.close();
+			//erstelle Writer, der in die Datei "PinDatenbank.dat" schreibt
 			writer = new BufferedWriter( new FileWriter(PfadKonfiguration.pfad + "PinDatenbank.dat"));
+			//für jedes Objekt der Liste pinListenBusse:
 			for (Pincode pinliste : pinListenBusse) {
+				//für j = 0, dann für j = 1:
 				for (int j = 0; j < 2; j++) {
 					for (int i = 1; i <= 52; i++) {
 						writer.write(pinliste.getPincode(j, i) + "\n");
