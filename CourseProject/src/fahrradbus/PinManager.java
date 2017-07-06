@@ -30,7 +30,8 @@ public class PinManager {
 	}
 	
 	/**
-	 * 
+	 * lege eine neue ArrayList an, füge drei mal Pincode hinzu.
+	 * Speichere die Pincodes für jeden Bus der drei Objekte in der Liste in die Datei PinDatenbank.dat
 	 * @throws Exception
 	 */
 	public void pinsAnlegen() throws Exception {
@@ -54,6 +55,10 @@ public class PinManager {
 		}
 	}
 	
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	public void datenLaden() throws Exception {
 		Path daten = Paths.get(PfadKonfiguration.pfad + "PinDatenbank.dat");
 		if (Files.exists(daten)) {
