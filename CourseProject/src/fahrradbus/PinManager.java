@@ -30,13 +30,13 @@ public class PinManager {
 	}
 	
 	/**
-	 * lege eine neue ArrayList an, füge drei mal Pincode hinzu.
-	 * Speichere die Pincodes für jeden Bus der drei Objekte in der Liste in die Datei PinDatenbank.dat
+	 * legt eine neue ArrayList an, fügt drei verschiedene Pincode-Arrays hinzu.
+	 * Speichert die Pincodes für jeden Bus der drei Objekte in der Liste in die Datei PinDatenbank.dat
 	 * @throws Exception
 	 */
 	public void pinsAnlegen() throws Exception {
 		pinListenBusse = new ArrayList<Pincode>();
-		//lege drei ArrayLists an.
+		//lege drei Stellen auf der Arraylist an.
 		pinListenBusse.add(new Pincode());
 		pinListenBusse.add(new Pincode());
 		pinListenBusse.add(new Pincode());
@@ -89,6 +89,7 @@ public class PinManager {
 	}
 	
 	/**
+	 * Erstellt die Datei PinDatenbank.dat.
 	 * 
 	 * @throws Exception
 	 */
@@ -153,9 +154,15 @@ public class PinManager {
 		    }
 		}
 	}
-	
+	/**
+	 * kann bei Jahreswechsel ausgeführt werden. Verschiebt die Pins von nächstem Jahr in
+	 * dieses Jahr und legt neue zufällige Pins für nächstes Jahr aus.
+	 * Dies wird für alle drei Busobjekte in der pinListenBusse ausgeführt.
+	 */
 	public void nächstesJahr() {
+		//für jedes Objekt aus der Liste pinListenBusse...
 		for (Pincode pins : pinListenBusse) {
+			//führe die Methode nächstesJahr für die Pincodes aus
 			pins.nächstesJahr();
 		}
 		try {

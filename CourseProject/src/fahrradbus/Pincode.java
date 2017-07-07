@@ -21,7 +21,10 @@ public class Pincode {
 		return pinsNächstesJahr[kalenderwoche - 1];
 	}
 	
-	
+	/**
+	 * Im Fall des Jahreswechsels werden pinsNächstesJahr in die Variable pinsDiesesJahr verschoben
+	 * und die initJahr-Funktion für das nächste Jahr ausgeführt (neue Codes für ein weteres Jahr erzeugt.
+	 */
 	public void nächstesJahr() {
 		pinsDiesesJahr = pinsNächstesJahr;
 		initJahr(1);
