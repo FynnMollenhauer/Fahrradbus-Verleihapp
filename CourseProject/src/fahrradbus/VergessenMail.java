@@ -14,10 +14,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
+/**
+ * verschickt die Passwort-Vergessen-Mail mit der User-Mailadresse und dem User-Passwort
+ * @author Charlin
+ *
+ */
 public class VergessenMail {
 
-	String msg = " "; // TODO hier muss dann der text rein
+	String msg = " ";
 	String subject = "Dein Passwort";
 	String userEmail;
 	String userPassword;
@@ -26,13 +30,17 @@ public class VergessenMail {
 	String email = "fahrradbus@gmx.de";
 	Properties props = new Properties();
 
-	public VergessenMail(String ue, String up, String s) { // String s nicht
-															// unbedingt
-															// notwendig wie
-															// oben erläutert
+	/**
+	 * der Constructor
+	 * @param ue User-EMail
+	 * @param up User-Passwort
+	 * @param s Betreff der Mail
+	 */
+	public VergessenMail(String ue, String up, String s) {
 		subject = s;
 		userEmail = ue;
 		userPassword = up;
+		//die Einstellungen für den Mailservice
 		Properties props = System.getProperties();
 		props.setProperty("mail.smtps.host", "smtp.gmail.com");
 		props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -41,10 +49,17 @@ public class VergessenMail {
 		props.setProperty("mail.smtp.socketFactory.port", "587");
 		props.setProperty("mail.smtps.auth", "true");
 	}
-
+	/**
+	 * Versendet die Passwort-Vergessen-Mail
+	 * @param address
+	 * @return true wenn die Mail erfolgreich versendet werden konnte
+	 */
 	public boolean sendMail(String address) {
+		//Sammelt die Einstellungen
 		Session session = Session.getInstance(props, null);
 
+		//Multipurpose Internet Mail Extensions
+		//Definiert das Datenformat der E-Mail
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(email));
@@ -58,8 +73,10 @@ public class VergessenMail {
 			return false;
 		}
 
+		//Bodypart enthält den Inhalt der MimeMessage
 		BodyPart messageBodyPart = new MimeBodyPart();
 		try {
+			//Zusammenfügen der Nachricht der E-Mail
 			messageBodyPart
 					.setText(msg + " Das Passwort zu deiner E-Mail-Adresse " + userEmail + " lautet: " + userPassword);
 			Multipart multipart = new MimeMultipart();
@@ -70,6 +87,7 @@ public class VergessenMail {
 			return false;
 		}
 
+		//Versenden der E-Mail
 		try {
 			Transport transport = session.getTransport("smtps");
 			transport.connect(host, email, password);

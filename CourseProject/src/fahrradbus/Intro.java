@@ -49,15 +49,23 @@ public class Intro {
 	
 	final UserBank datenbank = new UserBank();
 	
+	/**
+	 * stellt die Szene Intro zusammen.
+	 * @return Intro-Szene
+	 */
 	public Scene getScene() {
 	
+		//Nutzer der Datenbank laden und testweise Nutzer anlegen
 		try {
 			datenbank.datenLaden();
 			datenbank.nutzerAnlegen("fynn@live.de", "passwort123");
 			datenbank.nutzerAnlegen("test", "123");
-			datenbank.nutzerAnlegen("charlin.rennekamp@gmx.de", "123");
-			datenbank.nutzerAnlegen("ma-wendt@hotmail.de", "pups");
+			datenbank.nutzerAnlegen("charlin.rennekamp@gmx.de", "111");
+			datenbank.nutzerAnlegen("anahitarennekamp@gmail.com", "fahrradbus");
 			datenbank.nutzerAnlegen("steffi.metzner@gmail.com", "123");
+			datenbank.nutzerAnlegen("alina.roenner@hotmail.com", "alina123");
+			datenbank.nutzerAnlegen("faasch@uni.leuphana.de", "unglaublich");
+			datenbank.nutzerAnlegen("ludwig-siegfried@gmx.de", "ChalinGelee");
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -85,6 +93,7 @@ public class Intro {
 		grid.addRow(5, hinweis);
 		grid.addRow(6, warnung);
 		
+		// Leeren des Textfelds beim Aktivieren
 		EventHandler<MouseEvent> emailEnter = new EventHandler<MouseEvent>() {
 
 			@Override
@@ -95,6 +104,7 @@ public class Intro {
 		};
 		email.addEventHandler(MouseEvent.MOUSE_PRESSED, emailEnter);
 		
+		// Leeren des Textfelds beim Aktivieren
 		EventHandler<MouseEvent> passwordEnter = new EventHandler<MouseEvent>() {
 
 			@Override
@@ -105,15 +115,19 @@ public class Intro {
 		};
 		password.addEventHandler(MouseEvent.MOUSE_CLICKED, passwordEnter);
 
+		// Überprüfen der Daten uns Versenden der Passwort vergessen EMail 
 		EventHandler<ActionEvent> vergessenButton = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				String e = email.getText();
 
+				// Ist keine EMail eingetragen wird eine Warnung gesetzt.
 				if (e.equals("")) {
 					email.getStyleClass().add("warnung");
 					email.setText("Bitte E-Mail-Adresse eintragen!");
 				} else {
+					// Wenn die EMail-Adresse in der Datenbank vorhanden ist wird die Mail verschickt.
+					// Sonst wird eine Warnung gesetzt.
 					if (datenbank.nutzer.containsKey(e)) {
 						String p = datenbank.nutzer.get(e);
 						VergessenMail mail = new VergessenMail(e, p, "Dein Passwort");
@@ -129,6 +143,8 @@ public class Intro {
 		};
 		vergessen.setOnAction(vergessenButton);
 		
+		// Eventhandler der den Benutzer beim Anklicken des Logos zur fahrradbus Website
+		// weiterleitet.
 		EventHandler<MouseEvent> LogoClick = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent event) {
 				String url = "http://www.fahrradbus.com";
@@ -155,14 +171,26 @@ public class Intro {
 		return introSzene;
 	}
 
+	/**
+	 * Setter für den EventHandler des anmelden-Buttons
+	 * @param introWeiter
+	 */
 	public void setAnmeldenEventHandler(EventHandler<ActionEvent> introWeiter) {
 		anmelden.setOnAction(introWeiter);
 	}
 	
+	/**
+	 * Setter für den EventHandler des ändern-Buttons
+	 * @param introÄndern
+	 */
 	public void setÄndernEventHandler(EventHandler<ActionEvent> introÄndern) {
 		ändern.setOnAction(introÄndern);
 	}
 	
+	/**
+	 * Setter für den EventHandler des zurück-Buttons
+	 * @param introZurück
+	 */
 	public void setZurückEventHandler(EventHandler<ActionEvent> introZurück) {
 		zurück.setOnAction(introZurück);
 	}
@@ -175,6 +203,11 @@ public class Intro {
 		return email.getText();
 	}
 	
+	/**
+	 * Überprüft ob Passwort und EMail in der Datenbank sind und übereinstimmen.
+	 * @return true wenn die EMail in der Datenbank ist und das Passwort Übereinstimmt
+	 * 			sonst false.
+	 */
 	public boolean überprüfeDaten() {
 		String e = email.getText();
 		String p = password.getText();

@@ -71,7 +71,7 @@ public class AusleihMail {
 		Session session = Session.getInstance(props, null);
 
 		//Multipurpose Internet Mail Extensions
-		//Definiert das Datenormat der E-Mail
+		//Definiert das Datenformat der E-Mail
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(email));

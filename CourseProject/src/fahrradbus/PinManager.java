@@ -10,7 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * verwaltet das Pincode-System
+ * @author Charlin
+ *
+ */
 public class PinManager {
 	
 	/** 
@@ -56,7 +60,7 @@ public class PinManager {
 	}
 	
 	/**
-	 * 
+	 * Laden der Pins aus der Datenbank
 	 * @throws Exception
 	 */
 	public void datenLaden() throws Exception {
@@ -65,9 +69,12 @@ public class PinManager {
 			BufferedReader writer = null;
 			try {
 			    writer = new BufferedReader( new FileReader(PfadKonfiguration.pfad + "PinDatenbank.dat"));
-				for (Pincode pinliste : pinListenBusse) {
+				//Befüllen der Pinliste
+			    for (Pincode pinliste : pinListenBusse) {
+			    	//0 ist dieses Jahr, 1 ist nächstes Jahr
 					for (int j = 0; j < 2; j++) {
 						String[] pins = new String[52];
+						//für 52 Kalenderwochen 
 						for (int i = 0; i < 52; i++) {
 							pins[i] = writer.readLine();
 						}

@@ -2,6 +2,11 @@ package fahrradbus;
 
 import java.security.SecureRandom;
 
+/**
+ * Erstellt zufällige Pincodes.
+ * @author Charlin
+ *
+ */
 public class Pincode {
 
 	public String codeNeu;

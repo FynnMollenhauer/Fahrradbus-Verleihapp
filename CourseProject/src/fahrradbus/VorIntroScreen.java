@@ -69,7 +69,10 @@ public class VorIntroScreen {
 		return vorIntroSzene;
 	}
 	
-
+	/**
+	 * Setter für den EventHandler des zurAnmeldung-Buttons
+	 * @param handler
+	 */
 	public void setEventHandler(EventHandler<ActionEvent> handler) {
 		zurAnmeldung.setOnAction(handler);
 	}

@@ -13,7 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-
+/**
+ * setzt die Glückwunsch-Szene zusammen
+ * @author Charlin
+ *
+ */
 public class Glückwunsch {
 
 	Pane glückPane = new Pane();
@@ -24,9 +28,10 @@ public class Glückwunsch {
 
 	Label glück = new Label(
 			"Glückwunsch zur Reservierung!\nDu erhältst alle näheren Infos die du\nzum Ausleihen brauchst per E-mail.\nDen Fahrradbus findest du Am Sande 1.");
-
-	//Insets rand = new Insets(20, 0, 20, 20);
-
+	/**
+	 * stellt die Szene Glückwunsch zusammen.
+	 * @return Glückwunsch-Szene
+	 */
 	public Scene getScene() {
 		glückwunschSzene.getStylesheets().add("file:fahrradbus.css");
 		
@@ -38,6 +43,8 @@ public class Glückwunsch {
 		glückPane.getChildren().add(glück);
 		glückPane.getChildren().add(headerView);
 
+		// Eventhandler der den Benutzer beim Anklicken des Logos zur fahrradbus Website
+		// weiterleitet.
 		EventHandler<MouseEvent> LogoClick = new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -61,9 +68,6 @@ public class Glückwunsch {
 			};
 		};
 		headerView.addEventHandler(MouseEvent.MOUSE_CLICKED, LogoClick);
-
-		//glückPane.setStyle("-fx-background-color: white");
-		//glückPane.setPadding(rand);
 		
 		return glückwunschSzene;
 	}

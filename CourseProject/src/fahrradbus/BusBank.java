@@ -73,7 +73,7 @@ public class BusBank {
 	}
 	
 	/**
-	 * Hinzufügen der gebuchten Tage zu den geblockten Tage eines Busses.
+	 * Hinzufügen der gebuchten Tage zu den geblockten Tagen eines Busses.
 	 * @param nummer des Busses
 	 * @param tage gebuchte Tage
 	 */
