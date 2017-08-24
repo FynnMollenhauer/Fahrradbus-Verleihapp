@@ -51,10 +51,10 @@ public class Calendar {
         VBox vbox = new VBox(20);
         vbox.setStyle("-fx-padding: 10;");
         Scene calendarScene = new Scene(vbox, 400, 400);
-        entleihenDatePicker = new DatePicker();
         
         calendarScene.getStylesheets().add("file:fahrradbus.css");
         
+        entleihenDatePicker = new DatePicker();
         //verhindert, dass der Nutzer das Textfeld des DatePickers bearbeiten kann
         entleihenDatePicker.setEditable(false);
         rückgabeDatePicker = new DatePicker();

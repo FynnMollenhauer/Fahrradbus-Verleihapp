@@ -2,7 +2,6 @@ package fahrradbus;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -40,7 +39,7 @@ public class VorIntroScreen {
 			+ "Nach erfolgreich bestandener Fahrradprüfung können die drei vorhandenen Fahrradbusse\n jederzeit nach jeweiliger Verfügbarkeit, welche im Kalender einsehbar ist,\ngebucht und genutzt werden. "
 			+ "Nach erfolgreicher Buchung erhältst du von uns\neine Bestätigungs-E-Mail mit deinem aktuellen Zahlenschloss-Code,\nwelcher für jede Nutzung neu vergeben wird. Der Fahrradbus steht dann zur gebuchten Zeit\nan einem festen Standort für dich zur Verfügung.\n\n"
 			+ "Standort: Am Sande 1\n\n"
-			+ "Zeitbuchung: Abholung ab 7:00 Uhr, Abgabe bis 23:00 Uhr,\nmaximal zwei Tage hintereinander buchbar.\n\n"
+			+ "Zeitbuchung: Abholung ab 7:00 Uhr, Abgabe bis 23:00 Uhr,\nmaximal drei Tage hintereinander buchbar.\n\n"
 			+ "Bitte achte darauf, den Fahrradbus rechtzeitig nach Ablauf der Buchungsdauer\nwieder mit dem Fahrradschloss gesichert am oben angegebenen Standort\nzur Verfügung zu stellen, sodass eine reibungslose, unkomplizierte Übergabe\nan weitere Nutzer stattfinden kann.\n\n"
 			+ "Für eine ordentliche, verantwortungsvolle und nachhaltige Nutzung\nder Fahrradbusse sind wir dir sehr dankbar.\n\n"
 			+ "Weitere (rechtliche) Informationen findest du in den AGB’s sowie auf unserer Homepage.\n\n"

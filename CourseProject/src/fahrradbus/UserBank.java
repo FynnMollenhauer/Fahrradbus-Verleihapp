@@ -26,7 +26,7 @@ public class UserBank {
 	 * @param e Email
 	 * @param p Passwort
 	 */
-	void nutzerAnlegen(String e, String p) {
+	public void nutzerAnlegen(String e, String p) {
 		if (!nutzer.containsKey(e)) {
 			nutzer.put(e, p);
 			try {
@@ -42,7 +42,7 @@ public class UserBank {
 	 * Laden der Daten in die Hashtable nutzer (
 	 * @throws Exception
 	 */
-	void datenLaden() throws Exception {
+	public void datenLaden() throws Exception {
 		Path daten = Paths.get(PfadKonfiguration.pfad + "KundenDatenbank.dat");
 		//Wenn das "daten"-File schon existiert, rufe die nutzer-Daten daraus ab
 		if (Files.exists(daten)) {
@@ -56,7 +56,7 @@ public class UserBank {
 	 * Abspeichern der Nutzerdaten aus der Hashtable nutzer.
 	 * @throws Exception
 	 */
-	void datenSpeichern() throws Exception {
+	public void datenSpeichern() throws Exception {
 		Path daten = Paths.get(PfadKonfiguration.pfad + "KundenDatenbank.dat");
 		//erstelle das daten-File, falls es noch nicht existiert
 		if (!Files.exists(daten)) {
@@ -76,7 +76,7 @@ public class UserBank {
 	 * @param e Email
 	 * @param p Passwort
 	 */
-	void passwortÄndern(String e, String p) {
+	public void passwortÄndern(String e, String p) {
 		nutzer.remove(e);
 		nutzer.put(e, p);
 		try {
